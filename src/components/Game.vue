@@ -145,10 +145,10 @@ function randomItem() {
     if (Math.random() > 0.8) {
         item.element.className = 'item gold';
         item.type = 'gold';
-        item.speed = getRandomInt(200, 400)
+        item.speed = getRandomInt(500, 600)
     } else {
         item.element.className = 'item normal';
-        item.speed = getRandomInt(100, 200)
+        item.speed = getRandomInt(200, 300)
     }
     item.element.style.transform = `translate(${item.x}px, ${item.y}px)`;
 
@@ -195,8 +195,8 @@ const random = () => {
             if (itemRef.value.length > 10) return;
             randomItem();
             // console.log('summon');
-        }, Math.random() * 1000) * 5;
-    }, 1000);
+        }, getRandomInt(100,3000))
+    }, 500);
 }
 
 const onClickTutorial = () => {

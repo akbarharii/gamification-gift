@@ -6,6 +6,8 @@ import DynamicDialog from 'primevue/dynamicdialog';
 import InputText from 'primevue/inputtext';
 import { useDialog } from "primevue/usedialog";
 import Galeri from "./components/Galeri.vue";
+import { useConfirm } from "primevue/useconfirm";
+import ConfirmDialog from 'primevue/confirmdialog';
 
 const introText = [
   "",
@@ -18,7 +20,8 @@ const introText = [
   "Ciyaattt...",
   "",
 ]
-const dialog = useDialog();
+// const dialog = useDialog();
+const confirm = useConfirm();
 
 const galleryState = ref(false);
 const gameState = ref('intro');
@@ -100,6 +103,34 @@ function onClick() {
   }
 }
 
+function confirmReset() {
+  console.log('confirm reset')
+  confirm.require({
+    message: 'Apa kau ingin mereset progressmu? \n\nIni akan menghapus semua gambar yang sudah kau kumpulkan dan mengembalikan skormu menjadi 0.',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
+      // delete all collected picture and score on local storage
+      localStorage.removeItem('collectedPictureId');
+      localStorage.removeItem('score');
+      score.value = 0;
+
+      // reset game state
+      stateFlash.value = true;
+      setTimeout(() => {
+        stateBg.value = false;
+      }, 400);
+      setTimeout(() => {
+        gameState.value = 'main-menu';
+        stateFlash.value = false;
+      }, 1000);
+    },
+    reject: () => {
+
+    }
+  })
+}
+
 function onScore(type) {
   if (type === 'gold') {
     score.value += 10;
@@ -154,6 +185,8 @@ onMounted(() => {
             @click="onClick" />
           <Button style="width: 100%; margin-top: 1rem;" label="Galeri" :disabled="stateFlash" severity="info"
             @click="onClickGallery(null)" />
+          <Button style="width: 100%; margin-top: 1rem;" label="Reset Progress" :disabled="stateFlash"
+            @click="confirmReset" severity="danger"></Button>
           <br>
           <b>Gambar yang kamu kumpulkan : {{ score }}</b>
           <small class="">Kami merekomendasikan untuk main di hp dengan posisi tegak</small>
@@ -172,6 +205,7 @@ onMounted(() => {
   </div>
   <div>
     <DynamicDialog></DynamicDialog>
+    <ConfirmDialog></ConfirmDialog>
   </div>
   <div style="position: fixed; top: 0; left: 0; z-index: 1000;">
     <Galeri :score="score" :state="galleryState" @update:state="onClickGallery" />

@@ -145,10 +145,10 @@ function randomItem() {
     if (Math.random() > 0.8) {
         item.element.className = 'item gold';
         item.type = 'gold';
-        item.speed = getRandomInt(500, 600)
+        item.speed = getRandomInt(650, 900)
     } else {
         item.element.className = 'item normal';
-        item.speed = getRandomInt(200, 300)
+        item.speed = getRandomInt(350, 500)
     }
     item.element.style.transform = `translate(${item.x}px, ${item.y}px)`;
 

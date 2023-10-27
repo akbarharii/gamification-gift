@@ -34,11 +34,11 @@ const name = ref('');
 const recognition = computed(() => {
 
   let nl = name.value.toLowerCase();
-  if (nl === 'arini') {
+  if (nl === 'azahra') {
     return 'Sebentar... Jangan dihapus! aku berusaha mengingatnya...'
-  } else if (['ayu', 'dewi', 'widyaningsih'].includes(nl)) {
+  } else if (['rara', 'arar', 'arr'].includes(nl)) {
     return 'Hmmm... mohon maaf terlalu banyak yang mengakuinya...'
-  } else if (['ay', 'syng', 'sayang', 'honey'].includes(nl)) {
+  } else if (['ay', 'syng', 'sayang', 'beby'].includes(nl)) {
     return 'Iya iya... aku juga sayang kamu... namun aku tidak mengenalmu...'
   } else if (nl === '') {
     return 'Jawab isian di atas ya...'
@@ -156,7 +156,7 @@ onMounted(() => {
       return;
     }
     if (introStep.value === 4) {
-      if (name.value.toLowerCase() === 'arini') {
+      if (name.value.toLowerCase() === 'azahra') {
         introStep.value = 5;
         localStorage.setItem('lastLogin', new Date().getTime());
         return;
@@ -197,7 +197,7 @@ onMounted(() => {
         <p class="text-white text-center text-2xl font-bold">{{ introText[introStep] }}</p>
         <InputText v-if="introStep === 4" class="text-center" placeholder="Masukkan nama kamu" v-model="name" />
 
-        <small v-if="introStep === 4" class="text-white" :class="{ correct: name.toLowerCase() === 'arini' }"
+        <small v-if="introStep === 4" class="text-white" :class="{ correct: name.toLowerCase() === 'azahra' }"
           style="margin-top: 1rem; text-align: center;">{{ recognition }}</small>
       </div>
     </div>
